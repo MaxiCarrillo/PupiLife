@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>PUPI LIFE</title>
-</head>
-<body>
-	<header th:replace="~{/layouts/header :: header}"></header>
-	<h1>IMC</h1>
-	<footer th:replace="~{/layouts/footer :: footer}"></footer>
-</body>
+<html xmlns:th="http://www.thymeleaf.org" data-bs-theme="dark">
+	<head>
+		<meta charset="UTF-8">
+		<title>PUPILife</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+	</head>
+	<body>
+		<header th:replace="~{/layouts/header :: header}"></header>
+		<h1>IMC</h1>
+		<footer th:replace="~{/layouts/footer :: footer}"></footer>
+	</body>
 </html>
