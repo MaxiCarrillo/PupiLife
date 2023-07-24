@@ -6,6 +6,10 @@
 	text-decoration: none;
 }
 
+.dropdown-item:active{
+	background-color: #e92e74;
+}
+
 .nav-link-rose:hover{
 	color: #e92e74;
 }
