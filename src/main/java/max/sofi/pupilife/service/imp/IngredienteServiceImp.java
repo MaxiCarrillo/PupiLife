@@ -1,11 +1,13 @@
 package max.sofi.pupilife.service.imp;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import max.sofi.pupilife.entity.Ingrediente;
 import max.sofi.pupilife.repository.IngredienteRepository;
 import max.sofi.pupilife.service.IngredienteService;
 
+@Service
 public class IngredienteServiceImp implements IngredienteService {
 	
 	@Autowired
