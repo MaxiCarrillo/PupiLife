@@ -2,12 +2,20 @@ package max.sofi.pupilife.entity;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 /**
  * @author maxi1
  * Clase que representa un usuario.
  */
+@Entity
 public class Usuario {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nombre;
 	private String apellido;
