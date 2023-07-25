@@ -4,12 +4,16 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * @author maxi1
@@ -20,13 +24,29 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotEmpty
 	private String nombre;
+	
+	@NotEmpty
 	private String apellido;
+	
+	@NotEmpty
 	private String email;
+	
+	@NotEmpty
 	private String telefono;
+	
+	@NotEmpty
 	private String sexo;
+	
+	@NotNull
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaNac;
+	
+	@NotNull
 	private Double estatura;
+	
 	@OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<IndiceMasaCorporal> imc = new ArrayList<IndiceMasaCorporal>();
 	

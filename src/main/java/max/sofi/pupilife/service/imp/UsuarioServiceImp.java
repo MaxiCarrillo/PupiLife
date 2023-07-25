@@ -3,11 +3,13 @@ package max.sofi.pupilife.service.imp;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import max.sofi.pupilife.entity.Usuario;
 import max.sofi.pupilife.repository.UsuarioRepository;
 import max.sofi.pupilife.service.UsuarioService;
 
+@Service
 public class UsuarioServiceImp implements UsuarioService {
 
 	@Autowired
