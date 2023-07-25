@@ -1,10 +1,23 @@
 package max.sofi.pupilife.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+
+@Entity
 public class Receta {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nombre;
 	private String categoria;
-	private Ingrediente ingrediente;
+	@ManyToMany
+	private List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
 	private String preparacion;
 	private String imagen;
 	
@@ -12,13 +25,13 @@ public class Receta {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Receta(Long id, String nombre, String categoria, Ingrediente ingrediente, String preparacion,
+	public Receta(Long id, String nombre, String categoria, List<Ingrediente> ingredientes, String preparacion,
 			String imagen) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.categoria = categoria;
-		this.ingrediente = ingrediente;
+		this.ingredientes = ingredientes;
 		this.preparacion = preparacion;
 		this.imagen = imagen;
 	}
@@ -47,12 +60,12 @@ public class Receta {
 		this.categoria = categoria;
 	}
 
-	public Ingrediente getIngrediente() {
-		return ingrediente;
+	public List<Ingrediente> getIngredientes() {
+		return ingredientes;
 	}
 
-	public void setIngrediente(Ingrediente ingrediente) {
-		this.ingrediente = ingrediente;
+	public void setIngredientes(List<Ingrediente> ingredientes) {
+		this.ingredientes = ingredientes;
 	}
 
 	public String getPreparacion() {
@@ -70,7 +83,5 @@ public class Receta {
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
-	
-	
 	
 }
