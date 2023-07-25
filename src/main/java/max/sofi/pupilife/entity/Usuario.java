@@ -1,11 +1,15 @@
 package max.sofi.pupilife.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 /**
  * @author maxi1
@@ -24,6 +28,8 @@ public class Usuario {
 	private String sexo;
 	private LocalDate fechaNac;
 	private Double estatura;
+	@OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<IndiceMasaCorporal> imc = new ArrayList<IndiceMasaCorporal>();
 	
 	/**
 	 * Constructor vacio
@@ -36,7 +42,7 @@ public class Usuario {
 	 * Constructor parametrizado
 	 */
 	public Usuario(Long id, String nombre, String apellido, String email, String telefono, String sexo,
-			LocalDate fechaNac, Double estatura) {
+			LocalDate fechaNac, Double estatura, List<IndiceMasaCorporal> imc) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -46,10 +52,12 @@ public class Usuario {
 		this.sexo = sexo;
 		this.fechaNac = fechaNac;
 		this.estatura = estatura;
+		this.imc = imc;
 	}
 
-	// Getters and Setters
-	
+	/**
+	 * Getters y Setters
+	 */
 	public Long getId() {
 		return id;
 	}
@@ -113,5 +121,15 @@ public class Usuario {
 	public void setEstatura(Double estatura) {
 		this.estatura = estatura;
 	}
+
+	public List<IndiceMasaCorporal> getImc() {
+		return imc;
+	}
+
+	public void setImc(List<IndiceMasaCorporal> imc) {
+		this.imc = imc;
+	}
+
+	
 	
 }
