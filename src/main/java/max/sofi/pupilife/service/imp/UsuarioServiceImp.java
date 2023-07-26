@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import max.sofi.pupilife.entity.Usuario;
 import max.sofi.pupilife.repository.UsuarioRepository;
+import java.util.List;
 import max.sofi.pupilife.service.UsuarioService;
 
 @Service
@@ -36,4 +37,8 @@ public class UsuarioServiceImp implements UsuarioService {
 		return usuario.orElse(null);
 	}
 
+	@Override
+	public List<Usuario> obtenerUsuarios(){
+		return (List<Usuario>) usuarioRepository.findAll();
+	}
 }

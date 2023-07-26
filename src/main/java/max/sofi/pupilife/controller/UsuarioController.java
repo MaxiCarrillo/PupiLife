@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -62,8 +63,21 @@ public class UsuarioController {
 		return model;
 	}
 	
+	
+	/**
+	 * Peticion GET, permite obtener la pagina con todos los usuarios registrados.
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/usuarios")
 	public String getUsuario(Model model) {
+		model.addAttribute("usuarios", usuarioService.obtenerUsuarios());
 		return "usuarios";
+	}
+	
+	@GetMapping("/eliminarUsuario/{id}")
+	public String getEliminarUsuario(@PathVariable(value="id")Long id, Model model) {
+		usuarioService.eliminarUsuario(id);
+		return "redirect:/usuarios";
 	}
 }
