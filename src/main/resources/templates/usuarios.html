@@ -13,7 +13,7 @@
 	<div class="container mt-4 text-center">
 		<h4>Usuario</h4>
 		<hr>
-		<div class="table-responsive-sm">
+		<div class="table-responsive-sm" th:if="*{usuarios.size!=0}">
 			<table class="table table-bordered table align-middle" style="border-color:#e92e74">
 				<thead>
 					<tr>
@@ -25,18 +25,21 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<th scope="row">1</th>
-						<td>Mark</td>
-						<td>Otto</td>
-						<td>@mdo</td>
+					<tr th:each="usuario : ${usuarios}">
+						<th scope="row" th:text="*{usuario.id}"></th>
+						<td th:text="*{usuario.nombre}"></td>
+						<td th:text="*{usuario.apellido}"></td>
+						<td th:text="*{usuario.email}"></td>
 						<td>
-							<a class="btn btn-rose">Editar</a>
-							<a class="btn btn-inter">Eliminar</a>
+							<a class="btn btn-rose" th:href="@{/editarUsuario/}+*{usuario.id}">Editar</a>
+							<a class="btn btn-inter" th:href="@{/eliminarUsuario/}+*{usuario.id}">Eliminar</a>
 						</td>
 					</tr>
 				</tbody>
 			</table>
+		</div>
+		<div th:if="*{usuarios.size==0}">
+			<p class="lead">No hay usuarios registrados en el sistema.</p>
 		</div>
 	</div>
 	<footer th:replace="~{/layouts/footer :: footer}"></footer>
