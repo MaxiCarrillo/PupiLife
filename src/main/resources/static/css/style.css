@@ -35,3 +35,13 @@
 	background-color:  #f28ab1;
 	color:#212529;
 }
+
+.btn-inter{
+	background-color: #e92e74;
+	color:#212529;
+}
+
+.btn-inter:hover{
+	background-color: #c01455;
+	color:#212529;
+}

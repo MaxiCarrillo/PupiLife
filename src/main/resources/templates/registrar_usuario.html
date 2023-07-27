@@ -14,6 +14,7 @@
 		<h4 class="text-center">Usuario</h4>
 		<hr>
 		<form th:action="@{/registrarUsuario}" method="POST" th:object="${usuario}">
+			<input type="hidden" th:field="*{id}">
 			<div class="row g-3">
 				<div class="col-sm-4">
 					<label for="nombre" class="form-label">Nombre</label> 

@@ -12,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -25,26 +26,27 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotEmpty
+	@NotEmpty(message = "El campo nombre no puede estar vacio.")
 	private String nombre;
 	
-	@NotEmpty
+	@NotEmpty(message = "El campo apellido no puede estar vacio.")
 	private String apellido;
 	
-	@NotEmpty
+	@NotEmpty(message = "El campo email no puede estar vacio.")
+	@Email
 	private String email;
 	
-	@NotEmpty
+	@NotEmpty(message = "El campo telefono no puede estar vacio.")
 	private String telefono;
 	
-	@NotEmpty
+	@NotEmpty(message = "Debe seleccionar una opcion.")
 	private String sexo;
 	
-	@NotNull
+	@NotNull(message = "Debe ingresar una fecha de nacimiento.")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaNac;
 	
-	@NotNull
+	@NotNull(message = "El campo estatura no puede estar vacio.")
 	private Double estatura;
 	
 	@OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL, orphanRemoval = true)

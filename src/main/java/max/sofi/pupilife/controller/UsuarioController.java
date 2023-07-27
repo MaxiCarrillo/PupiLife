@@ -1,0 +1,83 @@
+package max.sofi.pupilife.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import max.sofi.pupilife.entity.Usuario;
+import max.sofi.pupilife.service.UsuarioService;
+
+@Controller
+public class UsuarioController {
+
+	@Autowired
+	private UsuarioService usuarioService;
+	
+	/**
+	 * Peticion GET, permite obtener el formulario para el registro de un usuario.
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/registrarUsuario")
+	public String getRegistrarUsuario(Model model){
+		model.addAttribute("usuario", new Usuario());
+		return "registrar_usuario";
+	}
+	
+	/**
+	 * Peticion GET, permite obtener el formulario para editar un usuario en especifico.
+	 * @param usuario
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/editarUsuario/{id}")
+	public String getEditarUsuario(Usuario usuario, Model model){
+		usuario = usuarioService.buscarUsuarioById(usuario.getId());
+		model.addAttribute("usuario", usuario);
+		return "registrar_usuario";
+	}
+	
+	/**
+	 * Peticion POST, permite verificar que los datos del usuario esten siendo ingresados correctamente.
+	 * Luego registra al usuario en la BD.
+	 * @param usuario
+	 * @param bindingResult
+	 * @return
+	 */
+	@PostMapping("/registrarUsuario")
+	public ModelAndView postRegistrarUsuario(@Validated @ModelAttribute("usuario") Usuario usuario, BindingResult bindingResult){
+		if(bindingResult.hasErrors()) {
+			ModelAndView model = new ModelAndView("registrar_usuario");
+			model.addObject("usuario", usuario);
+			return model;
+		}
+		usuarioService.agregarUsuario(usuario);
+		ModelAndView model = new ModelAndView("redirect:/inicio");
+		return model;
+	}
+	
+	
+	/**
+	 * Peticion GET, permite obtener la pagina con todos los usuarios registrados.
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/usuarios")
+	public String getUsuario(Model model) {
+		model.addAttribute("usuarios", usuarioService.obtenerUsuarios());
+		return "usuarios";
+	}
+	
+	@GetMapping("/eliminarUsuario/{id}")
+	public String getEliminarUsuario(@PathVariable(value="id")Long id, Model model) {
+		usuarioService.eliminarUsuario(id);
+		return "redirect:/usuarios";
+	}
+}
