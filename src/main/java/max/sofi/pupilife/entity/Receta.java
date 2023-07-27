@@ -95,5 +95,11 @@ public class Receta {
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
+
+	@Override
+	public String toString() {
+		return "Receta [id=" + id + ", nombre=" + nombre + ", categoria=" + categoria + ", ingredientes=" + ingredientes
+				+ ", preparacion=" + preparacion + ", imagen=" + imagen + "]";
+	}
 	
 }
