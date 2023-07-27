@@ -15,20 +15,18 @@ public class RecetaServiceImp implements RecetaService {
 
 	@Override
 	public void agregarReceta(Receta receta) {
-		// TODO Auto-generated method stub
-
+		recetaRepository.save(receta);
 	}
 
 	@Override
 	public void eliminarReceta(Long id) {
-		// TODO Auto-generated method stub
+		recetaRepository.deleteById(id);
 
 	}
 
 	@Override
 	public void modificarReceta(Receta receta) {
-		// TODO Auto-generated method stub
-
+		recetaRepository.save(receta);
 	}
 
 	@Override

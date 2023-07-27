@@ -8,17 +8,29 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 public class Receta {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotEmpty(message="El nombre no puede estar vacio")
 	private String nombre;
+	
+	@NotEmpty(message="Debe elegir una categoria")
 	private String categoria;
+	
 	@ManyToMany
+	@NotEmpty(message="Debe agregar los ingredientes")
 	private List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
+	
+	@NotEmpty(message="La receta debe tener una preparacion")
 	private String preparacion;
+	
+	@NotEmpty(message="Debe elegir una imagen")
 	private String imagen;
 	
 	public Receta() {
@@ -82,6 +94,12 @@ public class Receta {
 
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
+	}
+
+	@Override
+	public String toString() {
+		return "Receta [id=" + id + ", nombre=" + nombre + ", categoria=" + categoria + ", ingredientes=" + ingredientes
+				+ ", preparacion=" + preparacion + ", imagen=" + imagen + "]";
 	}
 	
 }
