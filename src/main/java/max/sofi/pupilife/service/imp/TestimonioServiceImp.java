@@ -1,11 +1,13 @@
 package max.sofi.pupilife.service.imp;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import max.sofi.pupilife.entity.Testimonio;
+import max.sofi.pupilife.entity.Usuario;
 import max.sofi.pupilife.repository.TestimonioRepository;
 import max.sofi.pupilife.service.TestimonioService;
 
@@ -40,5 +42,8 @@ public class TestimonioServiceImp implements TestimonioService {
 		return testimonio.orElse(null);
 	}
 	
-	
+	@Override
+	public List<Testimonio> obtenerTestimonios(){
+		return (List<Testimonio>) testimonioRepository.findAll();
+	}
 }
