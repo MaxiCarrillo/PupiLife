@@ -12,9 +12,9 @@
 		<header th:replace="~{/layouts/header :: header}"></header>
 		<h1 class="text-center">Testimonios</h1>
 		<div class="card mb-3 m-3 " th:each="test : ${testimonio}" style="max-width: 18rem; border: 1px solid #F7B5CD">
-		 	  <div class="card-header" th:text="*{testimonio.usuario}"></div>
+		 	  <div class="card-header" th:text="*{test.usuario}"></div>
 			  <div class="card-body" >
-			    <p class="card-text" th:text="*{testimonio.comentario}"></p>
+			    <p class="card-text" th:text="*{test.comentario}"></p>
 			  </div>
 		</div>
 		<a th:href="@{nuevo_testimonio}" >Dejar testimonio</a>

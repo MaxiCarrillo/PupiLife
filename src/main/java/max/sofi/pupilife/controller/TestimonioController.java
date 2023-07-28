@@ -42,11 +42,11 @@ public class TestimonioController {
 		return model;
 	}
 	
-	/*@GetMapping("/testimonio")
+	@GetMapping("/testimonios")
 	public String getTest(Model model) {
 		model.addAttribute("testimonio", testimonioService.obtenerTestimonios());
 		return "testimonio";
-	}*/
+	}
 	
 	
 }
