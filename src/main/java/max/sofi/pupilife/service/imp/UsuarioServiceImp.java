@@ -16,6 +16,9 @@ public class UsuarioServiceImp implements UsuarioService {
 	@Autowired
 	UsuarioRepository usuarioRepository;
 	
+	@Autowired
+	Usuario usuarioSesion;
+	
 	@Override
 	public void agregarUsuario(Usuario usuario) {
 		usuarioRepository.save(usuario);
@@ -40,5 +43,15 @@ public class UsuarioServiceImp implements UsuarioService {
 	@Override
 	public List<Usuario> obtenerUsuarios(){
 		return (List<Usuario>) usuarioRepository.findAll();
+	}
+	
+	@Override
+	public Usuario obtenerSesionUsuario() {
+		return this.usuarioSesion;
+	}
+	
+	@Override
+	public void iniciarSesion(Usuario usuario) {
+		this.usuarioSesion = usuario;
 	}
 }

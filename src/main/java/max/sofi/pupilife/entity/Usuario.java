@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Component;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -21,6 +22,7 @@ import jakarta.validation.constraints.NotNull;
  * Clase que representa un usuario.
  */
 @Entity
+@Component
 public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -151,6 +153,10 @@ public class Usuario {
 		this.imc = imc;
 	}
 
-	
-	
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email
+				+ ", telefono=" + telefono + ", sexo=" + sexo + ", fechaNac=" + fechaNac + ", estatura=" + estatura
+				+ ", imc=" + imc + "]";
+	}
 }

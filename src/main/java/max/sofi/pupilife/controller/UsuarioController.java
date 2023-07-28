@@ -27,8 +27,15 @@ public class UsuarioController {
 	 */
 	@GetMapping("/registrarUsuario")
 	public String getRegistrarUsuario(Model model){
-		model.addAttribute("usuario", new Usuario());
-		return "registrar_usuario";
+		if(this.usuarioService.obtenerSesionUsuario().getId()==null) {
+			model.addAttribute("login", false);
+			model.addAttribute("usuario", new Usuario());
+			return "registrar_usuario";
+		}else {
+			model.addAttribute("login", true);
+			return "redirect:/inicio";
+		}
+		
 	}
 	
 	/**
@@ -39,9 +46,16 @@ public class UsuarioController {
 	 */
 	@GetMapping("/editarUsuario/{id}")
 	public String getEditarUsuario(Usuario usuario, Model model){
-		usuario = usuarioService.buscarUsuarioById(usuario.getId());
-		model.addAttribute("usuario", usuario);
-		return "registrar_usuario";
+		if(this.usuarioService.obtenerSesionUsuario().getId()==null) {
+			model.addAttribute("login", false);
+			return "redirect:/inicio";
+		}else {
+			model.addAttribute("login", true);
+			usuario = usuarioService.buscarUsuarioById(usuario.getId());
+			model.addAttribute("usuario", usuario);
+			return "registrar_usuario";
+		}
+		
 	}
 	
 	/**
@@ -71,8 +85,14 @@ public class UsuarioController {
 	 */
 	@GetMapping("/usuarios")
 	public String getUsuario(Model model) {
-		model.addAttribute("usuarios", usuarioService.obtenerUsuarios());
-		return "usuarios";
+		if(this.usuarioService.obtenerSesionUsuario().getId()==null) {
+			model.addAttribute("login", false);
+			return "redirect:/inicio";
+		}else {
+			model.addAttribute("login", true);
+			model.addAttribute("usuarios", usuarioService.obtenerUsuarios());
+			return "usuarios";
+		}
 	}
 	
 	@GetMapping("/eliminarUsuario/{id}")

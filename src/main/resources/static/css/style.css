@@ -38,10 +38,20 @@
 
 .btn-inter{
 	background-color: #e92e74;
-	color:#212529;
+	color:#F7B5CD;
 }
 
 .btn-inter:hover{
 	background-color: #c01455;
-	color:#212529;
+	color:#F7B5CD;
+}
+
+.btn-outline-inter{
+	border-color: #e92e74;
+	color:#e92e74;
+}
+
+.btn-outline-inter:hover{
+	background-color: #e92e74;
+	color:#F7B5CD;
 }

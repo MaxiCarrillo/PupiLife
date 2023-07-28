@@ -11,4 +11,6 @@ public interface UsuarioService {
 	public void modificarUsuario(Usuario usuario);
 	public Usuario buscarUsuarioById(Long id);
 	public List<Usuario> obtenerUsuarios();
+	public Usuario obtenerSesionUsuario();
+	public void iniciarSesion(Usuario usuario);
 }

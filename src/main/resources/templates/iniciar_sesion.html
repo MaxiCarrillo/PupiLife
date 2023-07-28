@@ -9,9 +9,18 @@
 	</head>
 	<body>
 		<header th:replace="~{/layouts/header :: header}"></header>
-		<div class="container text-center mt-4">
-			<h1>Error 404</h1>
-			<p>Página no encontrada</p>
+		<div class="container mt-4" style="max-width: 350px;">
+			<h4 class="text-center">Iniciar Sesión</h4>
+			<hr>
+			<form th:action="@{/iniciarSesion}" method="POST">
+				<input type="hidden">
+				<div class="input-group">
+					<span class="input-group-text">#</span>
+					<input name="idUser" class="form-control" type="number" placeholder="Ingrese su ID.">
+				</div>
+				<div class="text-danger" th:if="*{error}" th:text="*{error}"></div>
+				<button type="submit" class="btn btn-rose mt-3 w-100">Iniciar Sesión</button>
+			</form>
 		</div>
 		<footer th:replace="~{/layouts/footer :: footer}"></footer>
 	</body>
