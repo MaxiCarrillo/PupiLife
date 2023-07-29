@@ -71,6 +71,7 @@
 				</div>
 			</div>
 			<button type="submit" class="btn btn-rose mt-3" style="width: 100px">Enviar</button>
+			<a class="btn btn-inter mt-3" style="width: 100px" th:href="${login == true ? '/usuarios' : '/inicio'}">Volver</a>
 		</form>
 	</div>
 	<footer th:replace="~{/layouts/footer :: footer}"></footer>

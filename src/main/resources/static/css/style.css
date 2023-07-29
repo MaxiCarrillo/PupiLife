@@ -55,3 +55,12 @@
 	background-color: #e92e74;
 	color:#F7B5CD;
 }
+
+.modal-body p{
+	color:#e92e74;
+}
+
+.modal-body span{
+	color:#fff;
+	text-decoration: underline;
+}
