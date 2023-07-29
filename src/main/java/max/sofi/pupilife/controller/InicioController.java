@@ -37,12 +37,18 @@ public class InicioController {
 	 * @return
 	 */
 	@GetMapping("/*")
-	public String getNotFound(){
+	public String getNotFound(Model model){
+		if(this.usuarioService.obtenerSesionUsuario().getId()==null) {
+			model.addAttribute("login", false);
+		}else {
+			model.addAttribute("login", true);
+		}
 		return "not_found";
 	}
 	
 	@GetMapping("/iniciarSesion")
-	public String getIniciarSesion() {
+	public String getIniciarSesion(Model model) {
+		model.addAttribute("login", false);
 		if(this.usuarioService.obtenerSesionUsuario().getId()==null) {
 			return "iniciar_sesion";
 		}else {
@@ -56,6 +62,7 @@ public class InicioController {
 		ModelAndView modelview;
 		if(idUser.equals(null) || idUser==""){
 			modelview = new ModelAndView("iniciar_sesion");
+			modelview.addObject("login", false);
 			modelview.addObject("error", "Ingrese un ID valido.");
 	    }else {
 	    	Usuario usuario = usuarioService.buscarUsuarioById(Long.parseLong(idUser));
@@ -64,6 +71,7 @@ public class InicioController {
 	    		usuarioService.iniciarSesion(usuario);
 	    	}else {
 	    		modelview = new ModelAndView("iniciar_sesion");
+	    		modelview.addObject("login", false);
 	    		modelview.addObject("error", "No existe usuario registrado con tal ID.");
 	    	}
 	    	
