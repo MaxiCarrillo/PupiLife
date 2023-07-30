@@ -1,5 +1,8 @@
 package max.sofi.pupilife.service.imp;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,20 +18,22 @@ public class IngredienteServiceImp implements IngredienteService {
 
 	@Override
 	public void agregarIngrediente(Ingrediente ingrediente) {
-		// TODO Auto-generated method stub
-
+		ingredienteRepository.save(ingrediente);
 	}
 
 	@Override
 	public void eliminarIngrediente(Long id) {
-		// TODO Auto-generated method stub
-
+		ingredienteRepository.deleteById(id);
 	}
 
 	@Override
 	public Ingrediente buscarIngredienteById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Ingrediente> ingrediente = ingredienteRepository.findById(id);
+		return ingrediente.orElse(null);
 	}
 
+	@Override
+	public List<Ingrediente> obtenerIngredientes(){
+		return (List<Ingrediente>) ingredienteRepository.findAll();
+	}
 }
