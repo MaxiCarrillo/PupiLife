@@ -23,7 +23,7 @@
 							aria-current="page" th:href="@{/inicio}">Inicio</a></li>
 						<li class="nav-item"><a class="nav-link" th:href="@{/registrarUsuario}" th:if="*{login==false}">Registrarme</a></li>
 						<li class="nav-item"><a class="nav-link" th:href="@{/receta}">Recetas</a></li>
-						<li class="nav-item"><a class="nav-link" th:href="@{/testimonio}">Testimonios</a></li>
+						<li class="nav-item"><a class="nav-link" th:href="@{/testimonios}">Testimonios</a></li>
 						<li class="nav-item"><a class="nav-link" th:href="@{/contacto}">Contáctanos</a></li>
 						<li class="nav-item dropdown" th:if="*{login==true}">
 							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Servicios</a>
@@ -36,6 +36,8 @@
 							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gestión de Datos</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" th:href="@{/usuarios}">Usuarios</a></li>
+								<li><a class="dropdown-item" th:href="@{/testimonio}">Testimonios</a></li>
+								<li><a class="dropdown-item" th:href="@{/ingredientes}">Ingredientes</a></li>
 							</ul>
 						</li>
 					</ul>
