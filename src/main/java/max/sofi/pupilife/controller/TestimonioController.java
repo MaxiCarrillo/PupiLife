@@ -1,5 +1,7 @@
 package max.sofi.pupilife.controller;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,6 +44,8 @@ public class TestimonioController {
 			model.addObject("testimonio", testimonio);
 			return model;
 		}
+		testimonio.setFecha(LocalDate.now());
+		testimonio.setUsuario(usuarioService.obtenerSesionUsuario());
 		testimonioService.agregarTestimonio(testimonio);
 		ModelAndView model = new ModelAndView("redirect:/gestion-testimonio");
 		return model;
@@ -60,8 +64,8 @@ public class TestimonioController {
 	}
 	
 	/**
-	 * Peticion GET, permite obtener el formulario para editar un usuario en especifico.
-	 * @param usuario
+	 * Peticion GET, permite obtener el formulario para editar un testimonio en especifico.
+	 * @param testimonio
 	 * @param model
 	 * @return
 	 */

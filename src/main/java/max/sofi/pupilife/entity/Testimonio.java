@@ -21,19 +21,17 @@ public class Testimonio {
 	@NotEmpty(message="Debes dejar tu comentario")
 	private String comentario;
 	private LocalDate fecha;
-	private boolean estado;
 	
 	public Testimonio() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Testimonio(Long id, Usuario usuario, String comentario, LocalDate fecha, boolean estado) {
+	public Testimonio(Long id, Usuario usuario, String comentario, LocalDate fecha) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
 		this.comentario = comentario;
 		this.fecha = fecha;
-		this.estado = estado;
 	}
 
 	public Long getId() {
@@ -67,18 +65,5 @@ public class Testimonio {
 	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
 	}
-
-	public boolean isEstado() {
-		return estado;
-	}
-
-	public void setEstado(boolean estado) {
-		this.estado = estado;
-	}
-
-	
-	
-	
-	
 
 }
