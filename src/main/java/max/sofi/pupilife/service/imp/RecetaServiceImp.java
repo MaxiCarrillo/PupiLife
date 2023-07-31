@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import max.sofi.pupilife.entity.Receta;
-import max.sofi.pupilife.entity.Testimonio;
 import max.sofi.pupilife.repository.RecetaRepository;
 import max.sofi.pupilife.service.RecetaService;
 

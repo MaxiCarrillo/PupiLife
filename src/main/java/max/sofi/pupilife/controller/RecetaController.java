@@ -1,6 +1,5 @@
 package max.sofi.pupilife.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import max.sofi.pupilife.entity.Ingrediente;
 import max.sofi.pupilife.entity.Receta;
+import max.sofi.pupilife.service.IngredienteService;
 import max.sofi.pupilife.service.RecetaService;
 import max.sofi.pupilife.service.UsuarioService;
 
@@ -27,6 +27,9 @@ public class RecetaController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
+	@Autowired
+	private IngredienteService ingredienteService;
+	
 	/**
 	 * Método para manejar la solicitud GET en la ruta "/receta".
 	 *
@@ -35,21 +38,18 @@ public class RecetaController {
 	 */
 	@GetMapping("/receta")
 	public String getObtenerRecetas(Model model) {
+		model.addAttribute("login", false);
+		if(this.usuarioService.obtenerSesionUsuario().getId()!=null) {
+			model.addAttribute("login", true);
+			model.addAttribute("admin", usuarioService.obtenerSesionUsuario().getAdmin().booleanValue());
+		}
 		model.addAttribute("receta",recetaService.obtenerRecetas());
-			return "receta";
+		return "receta";
 	}
 	
 	@GetMapping("/receta_nueva")
 	public String recetaNueva(Model model) {
-		List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
-		ingredientes.add(new Ingrediente(1L, "Harina"));
-		ingredientes.add(new Ingrediente(2L, "Huevo"));
-		ingredientes.add(new Ingrediente(3L, "Tomate"));
-		ingredientes.add(new Ingrediente(4L, "Azucar"));
-		ingredientes.add(new Ingrediente(5L, "Harina"));
-		ingredientes.add(new Ingrediente(6L, "Huevo"));
-		ingredientes.add(new Ingrediente(7L, "Tomate"));
-		ingredientes.add(new Ingrediente(8L, "Azucar"));
+		List<Ingrediente> ingredientes = ingredienteService.obtenerIngredientes();
 		model.addAttribute("ingredientes", ingredientes);
 		model.addAttribute("receta", new Receta());
 		return "receta_nueva";
@@ -58,22 +58,12 @@ public class RecetaController {
 	@PostMapping("/receta_nueva")
 	public ModelAndView postRecetaNueva(@Validated @ModelAttribute("receta") Receta receta, BindingResult bindingResult ) {
 		if(bindingResult.hasErrors()) {
-			List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
-			ingredientes.add(new Ingrediente(1L, "Harina"));
-			ingredientes.add(new Ingrediente(2L, "Huevo"));
-			ingredientes.add(new Ingrediente(3L, "Tomate"));
-			ingredientes.add(new Ingrediente(4L, "Azucar"));
-			ingredientes.add(new Ingrediente(5L, "Harina"));
-			ingredientes.add(new Ingrediente(6L, "Huevo"));
-			ingredientes.add(new Ingrediente(7L, "Tomate"));
-			ingredientes.add(new Ingrediente(8L, "Azucar"));
-			receta.setIngredientes(new ArrayList<Ingrediente>());
 			ModelAndView model = new ModelAndView("receta_nueva");
+			List<Ingrediente> ingredientes = ingredienteService.obtenerIngredientes();
 			model.addObject("ingredientes", ingredientes);
 			model.addObject("receta", receta);
 			return model;
 		}
-		System.out.println(receta.toString());
 		recetaService.agregarReceta(receta);
 		ModelAndView model = new ModelAndView("redirect:/receta");
 		return model;
@@ -81,8 +71,15 @@ public class RecetaController {
 	
 	@GetMapping("/gestion-receta")
 	public String getReceta(Model model) {
-		model.addAttribute("recetas", recetaService.obtenerRecetas());
-		return "gestion_receta";
+		if(this.usuarioService.obtenerSesionUsuario().getAdmin()==false) {
+			model.addAttribute("login", false);
+			return "redirect:/inicio";
+		}else {
+			model.addAttribute("login", true);
+			model.addAttribute("admin", usuarioService.obtenerSesionUsuario().getAdmin().booleanValue());
+			model.addAttribute("recetas", recetaService.obtenerRecetas());
+			return "gestion_receta";
+		}
 	}
 	
 	@GetMapping("/eliminarReceta/{id}")
@@ -105,7 +102,9 @@ public class RecetaController {
 		}else {
 			model.addAttribute("login", true);
 			receta = recetaService.buscarRecetaById(receta.getId());
-			model.addAttribute("recetas", receta);
+			List<Ingrediente> ingredientes = ingredienteService.obtenerIngredientes();
+			model.addAttribute("ingredientes", ingredientes);
+			model.addAttribute("receta", receta);
 			return "receta_nueva";
 		}
 		

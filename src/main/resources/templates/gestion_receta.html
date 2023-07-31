@@ -21,11 +21,10 @@
 			<table class="table table-bordered table align-middle" style="border-color:#e92e74">
 				<thead>
 					<tr>
-						<th scope="col">#Id</th>
+						<th scope="col">#</th>
 						<th scope="col">Nombre</th>
 						<th scope="col">Categoria</th>
 						<th scope="col">Preparacion</th>
-						<th scope="col">Ingredientes</th>
 						<th scope="col">Opciones</th>
 					</tr>
 				</thead>
@@ -35,7 +34,6 @@
 						<td th:text="*{receta.nombre}"></td>
 						<td th:text="*{receta.categoria}"></td>
 						<td th:text="*{receta.preparacion}"></td>
-						<td th:text="*{receta.ingredientes}"></td>
 						<td>
 							<a class="btn btn-secondary" th:attr="data-bs-toggle='modal', data-bs-target='#userModal' + ${receta.id}">Ver</a>
 							<a class="btn btn-rose" th:href="@{/editarReceta/}+*{receta.id}">Editar</a>
@@ -57,8 +55,12 @@
 			                <p>Id: <span th:text="${receta.id}"></span></p>
 			                <p>Nombre: <span th:text="${receta.nombre}"></span></p>
 			                <p>Categoria: <span th:text="${receta.categoria}"></span></p>
-			                <p>Prearacion: <span th:text="${receta.preparacion}"></span></p>
-			                <p>Inredientes: <span th:text="${receta.ingredientes}"></span></p>
+			                <p>Preparación: <span th:text="${receta.preparacion}"></span></p>
+			                <p class="mb-0">Ingredientes:</p>
+			                <ul>
+			                	<li th:each="ingrediente : ${receta.ingredientes}" th:text="${ingrediente.nombre}"></li>
+			                </ul>
+			                
 			                
 			            </div>
 			            <div class="modal-footer">
@@ -69,8 +71,8 @@
 			</div>
 		</div>
 		<div th:if="*{recetas.size==0}">
-			<p class="lead">No hay recetas creadas
-			 en el sistema.</p>
+			<p class="lead">No hay recetas creadas en el sistema.</p>
+			<a class="" th:href="@{/receta_nueva}">Crear Receta</a>
 		</div>
 	</div>
 		<footer th:replace="~{/layouts/footer :: footer}"></footer>

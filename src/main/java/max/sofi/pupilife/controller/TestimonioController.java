@@ -40,7 +40,7 @@ public class TestimonioController {
 	
 	@GetMapping("/nuevo_testimonio")
 	public String getNuevoTestimonio(Model model) {
-		if(this.usuarioService.obtenerSesionUsuario().getAdmin()==false) {
+		if(this.usuarioService.obtenerSesionUsuario().getId()==null) {
 			model.addAttribute("login", false);
 			return "redirect:/inicio";
 		}else {

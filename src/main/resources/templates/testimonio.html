@@ -10,14 +10,21 @@
 	</head>
 	<body>
 		<header th:replace="~{/layouts/header :: header}"></header>
-		<h1 class="text-center">Testimonios</h1>
-		<div class="card mb-3 m-3 " th:each="test : ${testimonio}" style="max-width: 18rem; border: 1px solid #F7B5CD">
-		 	  <div class="card-header" th:text="*{test.usuario}"></div>
-			  <div class="card-body" >
-			    <p class="card-text" th:text="*{test.comentario}"></p>
-			  </div>
+		<div class="container mt-4 text-center">
+			<h4>Testimonios</h4>
+			<hr>
+			<a th:href="@{nuevo_testimonio}" th:if="${login==true}">Dejar testimonio</a>
+			<div class="row row-cols-1 row-cols-md-3 g-4 mt-1">
+				<div class="col" th:each="test : ${testimonio}">
+				    <div class="card h-100"  style=" border: 1px solid #F7B5CD">
+				    	<div class="card-header" th:text="*{test.usuario.nombre}"></div>
+				      	<div class="card-body">
+					        <p class="card-text" th:text="*{test.comentario}"></p>
+					      </div>
+				    </div>
+			  	</div>
+			</div>
 		</div>
-		<a th:href="@{nuevo_testimonio}" >Dejar testimonio</a>
 		<footer th:replace="~{/layouts/footer :: footer}"></footer>
 	</body>
 </html>

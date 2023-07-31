@@ -20,6 +20,7 @@
 			<table class="table table-bordered table align-middle" style="border-color:#e92e74">
 				<thead>
 					<tr>
+						<th scope="col">#</th>
 						<th scope="col">Usuario</th>
 						<th scope="col">Testimonio</th>
 						<th scope="col">Fecha</th>
@@ -28,7 +29,8 @@
 				</thead>
 				<tbody>
 					<tr th:each="test : ${testimonio}">
-						<th scope="row" th:text="*{test.usuario.nombre}+' '+*{test.usuario.apellido}"></th>
+						<th scope="row" th:text="*{test.id}"></th>
+						<td th:text="*{test.usuario.nombre}+' '+*{test.usuario.apellido}"></td>
 						<td th:text="*{test.comentario}"></td>
 						<td th:text="*{test.fecha}"></td>
 						<td>
@@ -48,10 +50,10 @@
 			                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			            </div>
 			            <div class="modal-body text-start">
-			                
+			                <p>#ID: <span th:text="${test.id}"></span></p>
 			                <p>Usuario: <span th:text="${test.usuario.nombre}"></span></p>
 			                <p>Testimonio: <span th:text="${test.comentario}"></span></p>
-			                
+			                <p>Fecha de Creación: <span th:text="${test.fecha}"></span></p>
 			            </div>
 			            <div class="modal-footer">
 			                <button type="button" class="btn btn-inter" data-bs-dismiss="modal">Cerrar</button>
@@ -61,8 +63,8 @@
 			</div>
 		</div>
 		<div th:if="*{testimonio.size==0}">
-			<p class="lead">No hay testimoniosmcreados
-			 en el sistema.</p>
+			<p class="lead">No hay testimonios creados en el sistema.</p>
+			<a class="" th:href="@{/nuevo_testimonio}">Crear Testimonio</a>
 		</div>
 	</div>
 		<footer th:replace="~{/layouts/footer :: footer}"></footer>

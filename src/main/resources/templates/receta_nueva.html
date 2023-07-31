@@ -14,6 +14,7 @@
 		<h4 class="text-center">Agregar receta</h4>
 		<hr>
 		<form th:action="@{/receta_nueva}" method="post" th:object="${receta}">
+			<input type="hidden" th:field="*{id}">
 			<div class="row g-3">
 				<div class="col-sm-4">
 					<label for="nombre" class="form-label">Nombre</label> 
@@ -24,14 +25,14 @@
 				<div class="col-sm-4">
 					<label for="nombre" class="form-label">Categoria</label> 
 					<select class="form-select" th:field="*{categoria}">
-					  <option value="1">Recetas de carnes</option>
-					  <option value="2">Recetas de pescado</option>
-					  <option value="3">Recetas de ensaladas</option>
-					  <option value="4">Recetas de legumbres y cereales</option>
-					  <option value="5">Recetas de sopas y cremas</option>
-					  <option value="6">Recetas de bebidas</option>
-					  <option value="7">Recetas de dulces</option>
-					  <option value="8">Recetas de Pan</option>
+					  <option value="Recetas de carnes">Recetas de carnes</option>
+					  <option value="Recetas de pescado">Recetas de pescado</option>
+					  <option value="Recetas de ensalada">Recetas de ensaladas</option>
+					  <option value="Recetas de legumbres y cereales">Recetas de legumbres y cereales</option>
+					  <option value="Recetas de sopas y cremas">Recetas de sopas y cremas</option>
+					  <option value="Recetas de bebidas">Recetas de bebidas</option>
+					  <option value="Recetas de dulces">Recetas de dulces</option>
+					  <option value="Recetas de Pan">Recetas de Pan</option>
 					</select>
 					<div class="text-danger" th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"></div>
 				</div>
