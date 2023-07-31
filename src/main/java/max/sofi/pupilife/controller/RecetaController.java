@@ -49,10 +49,16 @@ public class RecetaController {
 	
 	@GetMapping("/receta_nueva")
 	public String recetaNueva(Model model) {
-		List<Ingrediente> ingredientes = ingredienteService.obtenerIngredientes();
-		model.addAttribute("ingredientes", ingredientes);
-		model.addAttribute("receta", new Receta());
-		return "receta_nueva";
+		if(this.usuarioService.obtenerSesionUsuario().getAdmin()==false) {
+			model.addAttribute("login", false);
+			return "redirect:/inicio";
+		}else {
+			model.addAttribute("admin", usuarioService.obtenerSesionUsuario().getAdmin().booleanValue());
+			List<Ingrediente> ingredientes = ingredienteService.obtenerIngredientes();
+			model.addAttribute("ingredientes", ingredientes);
+			model.addAttribute("receta", new Receta());
+			return "receta_nueva";
+		}
 	}
 	
 	@PostMapping("/receta_nueva")
