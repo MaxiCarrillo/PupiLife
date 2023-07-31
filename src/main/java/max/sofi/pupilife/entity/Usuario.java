@@ -54,6 +54,8 @@ public class Usuario {
 	@OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<IndiceMasaCorporal> imc = new ArrayList<IndiceMasaCorporal>();
 	
+	private Boolean admin=false;
+	
 	/**
 	 * Constructor vacio
 	 */
@@ -151,6 +153,14 @@ public class Usuario {
 
 	public void setImc(List<IndiceMasaCorporal> imc) {
 		this.imc = imc;
+	}
+
+	public Boolean getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Boolean admin) {
+		this.admin = admin;
 	}
 
 	@Override

@@ -51,6 +51,7 @@ public class UsuarioController {
 			return "redirect:/inicio";
 		}else {
 			model.addAttribute("login", true);
+			model.addAttribute("admin", usuarioService.obtenerSesionUsuario().getAdmin().booleanValue());
 			usuario = usuarioService.buscarUsuarioById(usuario.getId());
 			model.addAttribute("usuario", usuario);
 			return "registrar_usuario";
@@ -85,11 +86,12 @@ public class UsuarioController {
 	 */
 	@GetMapping("/usuarios")
 	public String getUsuario(Model model) {
-		if(this.usuarioService.obtenerSesionUsuario().getId()==null) {
+		if(this.usuarioService.obtenerSesionUsuario().getAdmin()==false) {
 			model.addAttribute("login", false);
 			return "redirect:/inicio";
 		}else {
 			model.addAttribute("login", true);
+			model.addAttribute("admin", usuarioService.obtenerSesionUsuario().getAdmin().booleanValue());
 			model.addAttribute("usuarios", usuarioService.obtenerUsuarios());
 			return "usuarios";
 		}

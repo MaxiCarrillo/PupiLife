@@ -27,14 +27,28 @@ public class TestimonioController {
 	
 	@GetMapping("/gestion-testimonio")
 	public String getTestimonio(Model model) {
-		model.addAttribute("testimonio", testimonioService.obtenerTestimonios());
-		return "gestion_testimonio";
+		if(this.usuarioService.obtenerSesionUsuario().getAdmin()==false) {
+			model.addAttribute("login", false);
+			return "redirect:/inicio";
+		}else {
+			model.addAttribute("login", true);
+			model.addAttribute("admin", usuarioService.obtenerSesionUsuario().getAdmin().booleanValue());
+			model.addAttribute("testimonio", testimonioService.obtenerTestimonios());
+			return "gestion_testimonio";
+		}
 	}
 	
 	@GetMapping("/nuevo_testimonio")
 	public String getNuevoTestimonio(Model model) {
-		model.addAttribute("testimonio", new Testimonio());
-		return "nuevo_testimonio";
+		if(this.usuarioService.obtenerSesionUsuario().getAdmin()==false) {
+			model.addAttribute("login", false);
+			return "redirect:/inicio";
+		}else {
+			model.addAttribute("login", true);
+			model.addAttribute("admin", usuarioService.obtenerSesionUsuario().getAdmin().booleanValue());
+			model.addAttribute("testimonio", new Testimonio());
+			return "nuevo_testimonio";
+		}
 	}
 	
 	@PostMapping("/nuevo_testimonio")
@@ -53,6 +67,11 @@ public class TestimonioController {
 	
 	@GetMapping("/testimonios")
 	public String getTest(Model model) {
+		model.addAttribute("login", false);
+		if(this.usuarioService.obtenerSesionUsuario().getId()!=null) {
+			model.addAttribute("login", true);
+			model.addAttribute("admin", usuarioService.obtenerSesionUsuario().getAdmin().booleanValue());
+		}
 		model.addAttribute("testimonio", testimonioService.obtenerTestimonios());
 		return "testimonio";
 	}
@@ -71,11 +90,12 @@ public class TestimonioController {
 	 */
 	@GetMapping("/editarTestimonio/{id}")
 	public String getEditarUsuario(Testimonio testimonio, Model model){
-		if(this.usuarioService.obtenerSesionUsuario().getId()==null) {
+		if(this.usuarioService.obtenerSesionUsuario().getAdmin()==false) {
 			model.addAttribute("login", false);
 			return "redirect:/inicio";
 		}else {
 			model.addAttribute("login", true);
+			model.addAttribute("admin", usuarioService.obtenerSesionUsuario().getAdmin().booleanValue());
 			testimonio = testimonioService.buscarTestimonioById(testimonio.getId());
 			model.addAttribute("testimonio", testimonio);
 			return "nuevo_testimonio";

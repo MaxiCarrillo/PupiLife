@@ -30,11 +30,12 @@ public class IngredienteController {
 	 */
 	@GetMapping("/ingredientes")
 	public String getIngredientes(Model model) {
-		if(this.usuarioService.obtenerSesionUsuario().getId()==null) {
+		if(this.usuarioService.obtenerSesionUsuario().getAdmin()==false) {
 			model.addAttribute("login", false);
 			return "redirect:/inicio";
 		}else {
 			model.addAttribute("login", true);
+			model.addAttribute("admin", usuarioService.obtenerSesionUsuario().getAdmin().booleanValue());
 			model.addAttribute("ingredientes", ingredienteService.obtenerIngredientes());
 			return "ingredientes";
 		}
@@ -46,8 +47,14 @@ public class IngredienteController {
 	 */
 	@GetMapping("/registrarIngrediente")
 	public String getRegistrarIngrediente(Model model) {
-		model.addAttribute("ingrediente", new Ingrediente());
-		return "registrar_ingrediente";
+		if(this.usuarioService.obtenerSesionUsuario().getAdmin()==false) {
+			model.addAttribute("login", false);
+			return "redirect:/inicio";
+		}else {
+			model.addAttribute("admin", usuarioService.obtenerSesionUsuario().getAdmin().booleanValue());
+			model.addAttribute("ingrediente", new Ingrediente());
+			return "registrar_ingrediente";
+		}
 	}
 	
 	/**
@@ -69,11 +76,12 @@ public class IngredienteController {
 	
 	@GetMapping("/editarIngrediente/{id}")
 	public String getEditarIngrediente(Ingrediente ingrediente, Model model){
-		if(this.usuarioService.obtenerSesionUsuario().getId()==null) {
+		if(this.usuarioService.obtenerSesionUsuario().getAdmin()==false) {
 			model.addAttribute("login", false);
 			return "redirect:/inicio";
 		}else {
 			model.addAttribute("login", true);
+			model.addAttribute("admin", usuarioService.obtenerSesionUsuario().getAdmin().booleanValue());
 			ingrediente = ingredienteService.buscarIngredienteById(ingrediente.getId());
 			model.addAttribute("ingrediente", ingrediente);
 			return "registrar_ingrediente";
