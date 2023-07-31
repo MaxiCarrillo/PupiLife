@@ -8,7 +8,25 @@
 	</head>
 	<body>
 		<header th:replace="~{/layouts/header :: header}"></header>
-		<h1>IMC</h1>
+		<div class="container mt-4 text-center">
+			<h4>IMC</h4>
+			<hr>	
+			<div class="row">
+				<div class="col-md-8">
+					<p>No ha realizado ningun calculo todavia.</p>
+				</div>
+				<div class="col-md-4">
+					<form class="m-1 p-2 border" th:action="@{/imc}" method="post" th:object="${imc}">
+					 	<div class="mb-3">
+						    <label class="form-label">Peso(KG)</label>
+						    <input type="number" class="form-control m-auto" style="max-width: 200px" placeholder="EJ: 68" th:field="*{peso}">
+						 	<div class="text-danger" th:if="${#fields.hasErrors('peso')}" th:errors="*{peso}"></div>
+						 </div>
+						 <button type="submit" class="btn btn-inter">Calcular</button>
+					</form>
+				</div>
+			</div>
+		</div>
 		<footer th:replace="~{/layouts/footer :: footer}"></footer>
 	</body>
 </html>

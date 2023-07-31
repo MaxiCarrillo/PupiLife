@@ -15,14 +15,12 @@ public class ImcServiceImp implements ImcService {
 
 	@Override
 	public void agregarImc(IndiceMasaCorporal indiceMasaCorporal) {
-		// TODO Auto-generated method stub
-
+		imcRepository.save(indiceMasaCorporal);
 	}
 
 	@Override
 	public void eliminarImc(Long id) {
-		// TODO Auto-generated method stub
-
+		imcRepository.deleteById(id);
 	}
 
 }

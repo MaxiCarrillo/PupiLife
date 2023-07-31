@@ -8,29 +8,38 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class IndiceMasaCorporal {
+	
 	//nos conviene usar Long para poder usar sus funciones
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDate fecha;
-    @ManyToOne
+    
+	private LocalDate fecha;
+    
+	@ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
-    private Boolean estado;
+    
+	private String estado;
+	
+	@NotNull(message = "El campo peso no puede estar vacio.")
+	private Double peso;
     
     public IndiceMasaCorporal() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public IndiceMasaCorporal(Long id, LocalDate fecha, Usuario usuario, Boolean estado) {
+	public IndiceMasaCorporal(Long id, LocalDate fecha, Usuario usuario, String estado, Double peso) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
 		this.usuario = usuario;
 		this.estado = estado;
+		this.peso = peso;
 	}
 
 	public Long getId() {
@@ -57,12 +66,33 @@ public class IndiceMasaCorporal {
 		this.usuario = usuario;
 	}
 
-	public Boolean getEstado() {
+	public String getEstado() {
 		return estado;
 	}
 
-	public void setEstado(Boolean estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+
+	public Double getPeso() {
+		return peso;
+	}
+
+	public void setPeso(Double peso) {
+		this.peso = peso;
+	}
     
+	public void calcularImc() {
+		Double alturaCuadrada = (this.usuario.getEstatura()/100)*(this.usuario.getEstatura()/100);
+		Double resultado = this.peso / alturaCuadrada;
+		if(resultado<18.5) {
+			this.estado = resultado + " - Está por debajo de su peso ideal.";
+		}else {
+			if(resultado>=18.5 || resultado <=25) {
+				this.estado = resultado + " - Está en su peso normal.";
+			}else {
+				this.estado = resultado + " - Tiene sobrepeso.";
+			}
+		}
+	}
 }
