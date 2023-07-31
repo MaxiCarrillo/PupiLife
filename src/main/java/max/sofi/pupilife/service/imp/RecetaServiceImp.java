@@ -1,9 +1,13 @@
 package max.sofi.pupilife.service.imp;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import max.sofi.pupilife.entity.Receta;
+import max.sofi.pupilife.entity.Testimonio;
 import max.sofi.pupilife.repository.RecetaRepository;
 import max.sofi.pupilife.service.RecetaService;
 
@@ -30,9 +34,15 @@ public class RecetaServiceImp implements RecetaService {
 	}
 
 	@Override
-	public void buscarRecetaById(Long id) {
+	public Receta buscarRecetaById(Long id) {
 		// TODO Auto-generated method stub
-
+		Optional<Receta> receta = recetaRepository.findById(id);
+		return receta.orElse(null);
+	}
+	
+	@Override
+	public List<Receta> obtenerRecetas(){
+		return (List<Receta>) recetaRepository.findAll();
 	}
 
 }
