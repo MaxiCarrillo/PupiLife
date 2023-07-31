@@ -10,17 +10,23 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import max.sofi.pupilife.entity.Ingrediente;
 import max.sofi.pupilife.entity.Receta;
+import max.sofi.pupilife.entity.Testimonio;
 import max.sofi.pupilife.service.RecetaService;
+import max.sofi.pupilife.service.UsuarioService;
 
 @Controller
 public class RecetaController {
 	@Autowired
 	private RecetaService recetaService;
+	
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	/**
 	 * Método para manejar la solicitud GET en la ruta "/receta".
@@ -29,8 +35,9 @@ public class RecetaController {
 	 * @GetMapping Indica que este método maneja solicitudes HTTP GET en la ruta especificada.
 	 */
 	@GetMapping("/receta")
-	public String getReceta() {
-		return "receta";
+	public String getObtenerRecetas(Model model) {
+		model.addAttribute("receta",recetaService.obtenerRecetas());
+			return "receta";
 	}
 	
 	@GetMapping("/receta_nueva")
@@ -69,10 +76,39 @@ public class RecetaController {
 		}
 		System.out.println(receta.toString());
 		recetaService.agregarReceta(receta);
-		ModelAndView model = new ModelAndView("redirect:/inicio");
+		ModelAndView model = new ModelAndView("redirect:/receta");
 		return model;
 	}
 	
+	@GetMapping("/gestion-receta")
+	public String getReceta(Model model) {
+		model.addAttribute("recetas", recetaService.obtenerRecetas());
+		return "gestion_receta";
+	}
 	
+	@GetMapping("/eliminarReceta/{id}")
+	public String getEliminarReceta(@PathVariable(value="id")Long id, Model model) {
+		recetaService.eliminarReceta(id);
+		return "redirect:/gestion-receta";
+	}
 	
+	/**
+	 * Peticion GET, permite obtener el formulario para editar un testimonio en especifico.
+	 * @param testimonio
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/editarReceta/{id}")
+	public String getEditarUsuario(Receta receta, Model model){
+		if(this.usuarioService.obtenerSesionUsuario().getId()==null) {
+			model.addAttribute("login", false);
+			return "redirect:/inicio";
+		}else {
+			model.addAttribute("login", true);
+			receta = recetaService.buscarRecetaById(receta.getId());
+			model.addAttribute("recetas", receta);
+			return "receta_nueva";
+		}
+		
+	}
 }
