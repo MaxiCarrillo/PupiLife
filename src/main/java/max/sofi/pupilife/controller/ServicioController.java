@@ -25,6 +25,8 @@ public class ServicioController {
 	@Autowired
 	ImcService imcService;
 	
+	
+	
 	/**
 	 * Método para manejar la solicitud GET en la ruta "/imc".
 	 *
@@ -71,7 +73,16 @@ public class ServicioController {
 	 * @GetMapping Indica que este método maneja solicitudes HTTP GET en la ruta especificada.
 	 */
 	@GetMapping("/peso-ideal")
-	public String getPesoIdeal() {
-		return "peso_ideal";
+	public String getPesoIdeal(Model model) {
+		if(this.usuarioService.obtenerSesionUsuario().getId()==null) {
+			return "redirect:/inicio";
+		}else {
+			model.addAttribute("login", true);
+			model.addAttribute("admin", usuarioService.obtenerSesionUsuario().getAdmin().booleanValue());
+			model.addAttribute("edad", usuarioService.obtenerSesionUsuario().calcularEdad());
+			model.addAttribute("pesoIdeal",  usuarioService.obtenerSesionUsuario().calcularPesoIdeal());
+			return "peso_ideal";
+		}
+		
 	}
 }

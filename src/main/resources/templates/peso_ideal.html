@@ -9,6 +9,9 @@
 	<body>
 		<header th:replace="~{/layouts/header :: header}"></header>
 		<h1>Peso Ideal</h1>
+		<p th:text="'Edad '+*{edad}+' años.'" ></p>
+		<p th:text=" 'tu peso ideal es '+*{pesoIdeal}+' kg.'" ></p>
+		   
 		<footer th:replace="~{/layouts/footer :: footer}"></footer>
 	</body>
 </html>
