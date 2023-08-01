@@ -1,6 +1,7 @@
 package max.sofi.pupilife.entity;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -162,6 +163,18 @@ public class Usuario {
 
 	public void setAdmin(Boolean admin) {
 		this.admin = admin;
+	}
+	
+	public int calcularEdad() {
+		LocalDate fechaActual = LocalDate.now();
+		Period periodo = Period.between(fechaNac, fechaActual);
+		return periodo.getYears();
+	}
+	
+	public double calcularPesoIdeal() {
+		
+		double pesoId = estatura - 100 + ((this.calcularEdad()/10)*0.9);
+		return pesoId;
 	}
 
 	@Override
