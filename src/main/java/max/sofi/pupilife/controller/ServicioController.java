@@ -39,9 +39,8 @@ public class ServicioController {
 			model.addAttribute("login", true);
 			model.addAttribute("admin", usuarioService.obtenerSesionUsuario().getAdmin().booleanValue());
 			model.addAttribute("imc", new IndiceMasaCorporal());
-			System.out.println(usuarioService.obtenerSesionUsuario());
-			//model.addAttribute("resultados", usuarioService.obtenerSesionUsuario().getImc());
-			
+			System.out.println(imcService.obtenerImcByUsuario(usuarioService.obtenerSesionUsuario()).size());
+			model.addAttribute("resultados",imcService.obtenerImcByUsuario(usuarioService.obtenerSesionUsuario()));
 			return "imc";
 		}
 	}

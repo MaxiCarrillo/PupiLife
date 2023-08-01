@@ -3,6 +3,7 @@ package max.sofi.pupilife.entity;
 import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,7 +21,7 @@ public class IndiceMasaCorporal {
     
 	private LocalDate fecha;
     
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
     
@@ -86,12 +87,12 @@ public class IndiceMasaCorporal {
 		Double alturaCuadrada = (this.usuario.getEstatura()/100)*(this.usuario.getEstatura()/100);
 		Double resultado = this.peso / alturaCuadrada;
 		if(resultado<18.5) {
-			this.estado = resultado + " - Está por debajo de su peso ideal.";
+			this.estado = resultado.intValue() + " - Está por debajo de su peso ideal.";
 		}else {
-			if(resultado>=18.5 || resultado <=25) {
-				this.estado = resultado + " - Está en su peso normal.";
+			if(resultado>=18.5 && resultado <=25) {
+				this.estado = resultado.intValue() + " - Está en su peso normal.";
 			}else {
-				this.estado = resultado + " - Tiene sobrepeso.";
+				this.estado = resultado.intValue() + " - Tiene sobrepeso.";
 			}
 		}
 	}
