@@ -30,7 +30,6 @@ public class Receta {
 	@NotEmpty(message="La receta debe tener una preparacion")
 	private String preparacion;
 	
-	@NotEmpty(message="Debe elegir una imagen")
 	private String imagen;
 	
 	public Receta() {

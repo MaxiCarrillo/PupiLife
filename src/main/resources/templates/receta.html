@@ -18,6 +18,7 @@
 				<div class="col"  th:each="receta : ${receta}" >
 				    <div class="card h-100"  style=" border: 1px solid #F7B5CD">
 				    	<div class="card-header"  th:text="*{receta.nombre}"></div>
+				    	<img th:src="@{/recetas/uploads/}+*{receta.imagen}" class="card-img-top" th:if="*{receta.imagen!=null}">
 				      	<div class="card-body">
 					        <p class="card-text" th:text="*{receta.preparacion}"></p>
 					      </div>

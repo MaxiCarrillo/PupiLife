@@ -13,7 +13,7 @@
 		<div class="container mt-4">
 		<h4 class="text-center">Agregar receta</h4>
 		<hr>
-		<form th:action="@{/receta_nueva}" method="post" th:object="${receta}">
+		<form th:action="@{/receta_nueva}" method="post" th:object="${receta}" enctype="multipart/form-data">
 			<input type="hidden" th:field="*{id}">
 			<div class="row g-3">
 				<div class="col-sm-4">
@@ -44,9 +44,9 @@
 					<div class="text-danger" th:if="${#fields.hasErrors('preparacion')}" th:errors="*{preparacion}"></div>
 				</div>
 				<div class="col-sm-4">
-					 <label for="imagen" class="form-label">Imagen</label><br>
-					<input type="text" name="file" id="file" class="form-control" th:field="*{imagen}">
-					<div class="text-danger" th:if="${#fields.hasErrors('imagen')}" th:errors="*{imagen}"></div> 
+					<label class="form-label">Imagen</label><br>
+					<input type="file" accept="image/*" name="file" id="file" class="form-control">
+					<div class="text-danger" th:if="${vacio==true}">Debe cargar una imagen.</div> 
 				</div>
 				<div class="col-sm-6">
 					<label for="preparacion" class="form-label">Ingredientes</label><br>
@@ -56,6 +56,9 @@
 					</div>
 					<div class="text-danger" th:if="${#fields.hasErrors('ingredientes')}" th:errors="*{ingredientes}"></div>
 				</div>
+			</div>
+			<div class="card mt-2 mx-auto" style="width: 18rem;" th:if="*{imagen!=null}">
+				<img th:src="@{/recetas/uploads/}+*{imagen}" class="card-img-top">
 			</div>
 			<button type="submit" class="btn btn-rose mt-3" style="width: 100px">Enviar</button>
 		</form>
