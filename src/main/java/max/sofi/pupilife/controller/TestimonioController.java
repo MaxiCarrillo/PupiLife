@@ -71,6 +71,7 @@ public class TestimonioController {
 		if(this.usuarioService.obtenerSesionUsuario().getId()!=null) {
 			model.addAttribute("login", true);
 			model.addAttribute("admin", usuarioService.obtenerSesionUsuario().getAdmin().booleanValue());
+			model.addAttribute("idUsuario", usuarioService.obtenerSesionUsuario().getId());
 		}
 		model.addAttribute("testimonio", testimonioService.obtenerTestimonios());
 		return "testimonio";

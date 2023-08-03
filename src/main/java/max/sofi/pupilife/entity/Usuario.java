@@ -56,6 +56,9 @@ public class Usuario {
 	@OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<IndiceMasaCorporal> imc = new ArrayList<IndiceMasaCorporal>();
 	
+	@OneToMany(mappedBy = "usuario", orphanRemoval = true, fetch = FetchType.EAGER)
+	private List<Testimonio> testimonios = new ArrayList<Testimonio>();
+	
 	private Boolean admin=false;
 	
 	/**
@@ -69,7 +72,7 @@ public class Usuario {
 	 * Constructor parametrizado
 	 */
 	public Usuario(Long id, String nombre, String apellido, String email, String telefono, String sexo,
-			LocalDate fechaNac, Double estatura, List<IndiceMasaCorporal> imc) {
+			LocalDate fechaNac, Double estatura, List<IndiceMasaCorporal> imc, List<Testimonio> testimonios) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -80,6 +83,7 @@ public class Usuario {
 		this.fechaNac = fechaNac;
 		this.estatura = estatura;
 		this.imc = imc;
+		this.testimonios = testimonios; 
 	}
 
 	/**
@@ -165,6 +169,14 @@ public class Usuario {
 		this.admin = admin;
 	}
 	
+	public List<Testimonio> getTestimonio() {
+		return testimonios;
+	}
+
+	public void setTestimonio(List<Testimonio> testimonios) {
+		this.testimonios = testimonios;
+	}
+
 	public int calcularEdad() {
 		LocalDate fechaActual = LocalDate.now();
 		Period periodo = Period.between(fechaNac, fechaActual);
@@ -181,6 +193,6 @@ public class Usuario {
 	public String toString() {
 		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email
 				+ ", telefono=" + telefono + ", sexo=" + sexo + ", fechaNac=" + fechaNac + ", estatura=" + estatura
-				+ ", imc=" + imc + "]";
+				+ ", imc=" + imc + ", testimonios=" + testimonios + ", admin=" + admin + "]";
 	}
 }

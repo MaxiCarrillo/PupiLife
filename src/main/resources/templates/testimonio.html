@@ -20,6 +20,10 @@
 				    	<div class="card-header" th:text="*{test.usuario.nombre}"></div>
 				      	<div class="card-body">
 					        <p class="card-text" th:text="*{test.comentario}"></p>
+					        <div th:if="${idUsuario == test.usuario.id}">
+					     	   	<a class="btn btn-rose" th:href="@{/editarTestimonio/}+*{test.id}">Editar</a>
+								<a class="btn btn-inter" th:href="@{/eliminarTestimonio/}+*{test.id}">Eliminar</a>
+					        </div>
 					      </div>
 				    </div>
 			  	</div>
