@@ -73,8 +73,13 @@ public class UsuarioController {
 			model.addObject("usuario", usuario);
 			return model;
 		}
+	
+		
+		
 		usuarioService.agregarUsuario(usuario);
-		ModelAndView model = new ModelAndView("redirect:/inicio");
+		ModelAndView model = new ModelAndView("index");
+		model.addObject("login", false);
+		model.addObject("msj","Bienvenido, tu codigo es " + usuario.getId() + " guardalo bien.");
 		return model;
 	}
 	
